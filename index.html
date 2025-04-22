@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pluh channel</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="TimeThingy"></div><span id="current-time" class="time">Loading...</span></div>
+  <h1>pluh channel</h1>
+  <button onclick="openCustomiseMenu()">create a fella</button>
+  <div id="ascii-grid"></div>
+
+  <div class="overlay" id="overlay" onclick="closeMenu()"></div>
+  <div class="menu" id="avatarMenu">
+    <h2 id="menuName"></h2>
+    <pre id="menuFace"></pre>
+    <p id="menuAge"></p>
+    <button onclick="closeMenu()">close</button>
+  </div>
+
+  <div class="customise-menu" id="customiseMenu">
+    <h2>choose a face !!</h2>
+    <div id="asciiOptions"></div>
+    <input type="text" id="avatarName" placeholder="Enter name" />
+    <br><br>
+    <button onclick="createNewAvatar()">create</button>
+    <button onclick="closeMenu()">cancel</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
