@@ -131,6 +131,9 @@ body {
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     display: none;
     z-index: 1000;
+    max-width: 400px;      /* 👈 Prevents it from getting too wide */
+    max-height: 90vh;      /* 👈 Prevents off-screen overflow */
+    overflow-y: auto;
     
   }
   .overlay {
@@ -152,6 +155,8 @@ body {
     border-radius: 5px;
     background: #f9f9f9;
     cursor: url("wii-pointer-blue.cur"), auto;
+    flex-wrap: wrap;
+    max-height: 200px; 
   }
   .ascii-option:hover {
     background: #e0f7fa;
@@ -609,4 +614,10 @@ The following code is used to animate the avatars dying.
   margin-top: 8px;
   margin-bottom: 16px;
   transition: opacity 0.3s ease;
+}
+
+#avatarName {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }

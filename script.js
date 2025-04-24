@@ -36,6 +36,17 @@ const lifeQuotes = [
   "'I wonder how many people I've looked at all my life and never seen.'- Haruki Murakami"
 ];
 
+const clickSound = new Audio('ClickSound.mp3');
+
+function playClickSound() {
+  clickSound.currentTime = 0; // rewind to start
+  clickSound.play();
+}
+
+document.querySelectorAll('button').forEach(btn => {
+  btn.addEventListener('click', playClickSound);
+});
+
 let lastLifeQuoteIndex = -1;
 const deathTickerQueue = [];
 let showLifeQuoteNext = true;
