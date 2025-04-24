@@ -3,13 +3,42 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pluh channel</title>
+  <title>Miinutes™</title>
+  <link rel="icon" type="image/x-icon" href="TabIcon.png">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div id="lifeTicker">
+    <div id="tickerText"></div>
+  </div>  
   <div id="TimeThingy"></div><span id="current-time" class="time">Loading...</span></div>
-  <h1>pluh channel</h1>
-  <button onclick="openCustomiseMenu()">create a fella</button>
+  <h1>Miinutes™</h1>
+  <p class="subtext animate-me">by Stephen Hornblow</p>
+  <div class="button-row">
+    <div class="icon-button-wrapper">
+      <button class="icon-button" onclick="openCustomiseMenu()">
+        <img src="AddButton.png" alt="Create Avatar" />
+      </button>
+      <span class="tooltip">Create Avatar</span>
+    </div>
+  
+    <div class="stats-button-wrapper">
+      <button class="stats-button" onclick="openStatsMenu()">
+        <img src="StatsIcon.png" alt="Stats" />
+      </button>
+      <span class="stats-tooltip">Stats</span>
+    </div>
+
+    <div class="graveyard-button-wrapper">
+      <button class="graveyard-button" onclick="openGraveyard()">
+        <img src="GraveIcon.png" alt="Graveyard" />
+      </button>
+      <span class="graveyard-tooltip">Graveyard</span>
+    </div>
+    
+  </div>  
+  <p id="population-counter" class="population-inline">Loading stats...</p>
+
   <div id="ascii-grid"></div>
 
   <div class="overlay" id="overlay" onclick="closeMenu()"></div>
@@ -17,7 +46,12 @@
     <h2 id="menuName"></h2>
     <pre id="menuFace"></pre>
     <p id="menuAge"></p>
-    <button onclick="closeMenu()">close</button>
+    <div class="close-button-wrapper">
+      <button class="close-button" onclick="closeMenu()">
+        <img src="ReturnIcon.png" alt="Close" />
+      </button>
+      <span class="close-tooltip">Return</span>
+    </div>
   </div>
 
   <div class="customise-menu" id="customiseMenu">
@@ -25,9 +59,47 @@
     <div id="asciiOptions"></div>
     <input type="text" id="avatarName" placeholder="Enter name" />
     <br><br>
-    <button onclick="createNewAvatar()">create</button>
-    <button onclick="closeMenu()">cancel</button>
+    <div class="button-row">
+      <div class="confirm-button-wrapper">
+        <button class="confirm-button" onclick="createNewAvatar()">
+          <img src="ConfirmIcon.png" alt="Create" />
+        </button>
+        <span class="confirm-tooltip">Create</span>
+      </div>
+      <div class="close-button-wrapper">
+        <button class="close-button" onclick="closeMenu()">
+          <img src="ReturnIcon.png" alt="Close" />
+        </button>
+        <span class="close-tooltip">Return</span>
+      </div>
+    </div>
+    
   </div>
+
+  <div class="stats-menu" id="statsMenu">
+    <h2>Stats</h2>
+    <div id="statsContent">
+      
+    </div>
+    <div class="close-button-wrapper">
+      <button class="close-button" onclick="closeMenu()">
+        <img src="ReturnIcon.png" alt="Close" />
+      </button>
+      <span class="close-tooltip">Return</span>
+    </div>
+  </div>
+
+  <div class="graveyard-menu" id="graveyardMenu">
+    <h2>Graveyard</h2>
+    <div id="graveyardContent"></div>
+    <div class="close-button-wrapper">
+      <button class="close-button" onclick="closeMenu()">
+        <img src="ReturnIcon.png" alt="Close" />
+      </button>
+      <span class="close-tooltip">Return</span>
+    </div>
+  </div>
+  
 
   <script src="script.js"></script>
 </body>

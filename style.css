@@ -1,3 +1,28 @@
+@font-face {
+  font-family: 'Continuum';
+  src: url('contl.ttf') format('truetype');
+  font-weight: 300; 
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Continuum';
+  src: url('contm.ttf') format('truetype');
+  font-weight: 500; 
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Continuum';
+  src: url('contb.ttf') format('truetype');
+  font-weight: 700; 
+  font-style: normal;
+}
+
+* {
+  cursor: url("wii-pointer-ccw.cur"), auto;
+}
+
 body {
     
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -12,7 +37,9 @@ body {
   
   h1 {
     margin-bottom: 1rem;
-    color:#009ac7;
+    color:#3fc0ec;
+    font-family: 'Continuum';
+    font-weight: 700;
   }
 
   .TimeThingy {
@@ -20,22 +47,79 @@ body {
   }
 
   #ascii-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 16px;
-    margin-top: 32px;
+    justify-content: center;
   }
+  
+  
   .avatar {
+    position: relative;
+    width: 100px;
+    height: 100px;
     background: white;
     border-radius: 10px;
-    padding: 16px;
+    padding: 12px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: url("wii-pointer-blue.cur"), auto;
+    transform: scale(1);
+    transition: transform 0.2s ease;
+    will-change: transform;
+    flex: 0 0 auto;
+    
   }
+  
   .avatar:hover {
-    transform: scale(1.05);
+    transform: scale(1.15);
+    z-index: 2;
   }
+  
+
+  .avatar pre {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+  
+  .avatar-name {
+    margin-top: 6px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    font-family: 'Continuum';
+  }
+  
+  
+  .avatar-age {
+    position: absolute;
+    bottom: 100%;
+    background: #333;
+    color: #fff;
+    font-size: 0.7rem;
+    padding: 4px 8px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    opacity: 0;
+    pointer-events: none;
+    white-space: nowrap;
+    transition: opacity 0.2s ease;
+    font-family: 'Continuum';
+  }
+  
+  .avatar:hover .avatar-age {
+    opacity: 1;
+  }
+  
+  .menu {
+    font-family: 'Continuum';
+  }
+
+
   .menu, .customise-menu {
     position: fixed;
     top: 50%;
@@ -47,6 +131,7 @@ body {
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     display: none;
     z-index: 1000;
+    
   }
   .overlay {
     position: fixed;
@@ -66,8 +151,462 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     background: #f9f9f9;
+    cursor: url("wii-pointer-blue.cur"), auto;
   }
   .ascii-option:hover {
     background: #e0f7fa;
   }
+
+  .icon-button-wrapper {
+    position: relative;
+    display: inline-block;
+  }
   
+  .icon-button {
+    font-size: 32px;
+    padding: 0;
+    border: none; 
+    outline: none; 
+    background-color: transparent; 
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s;
+    box-shadow: none;
+    cursor: url("wii-pointer-blue.cur"), auto;
+  }
+  
+  .icon-button img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    cursor: url("wii-pointer-blue.cur"), auto;
+  }
+
+  .icon-button:hover {
+    transform: scale(1.15);
+    background-color: #e4e4e4;
+  }
+  
+  .tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 8px;
+    background-color: #333;
+    color: #fff;
+    padding: 0.4rem 0.6rem;
+    border-radius: 4px;
+    font-size: 12.8px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    font-family: 'Continuum';
+  }
+  
+  .icon-button-wrapper:hover .tooltip {
+    opacity: 1;
+  }
+
+  #current-time {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Continuum', sans-serif;
+    font-size: 1rem;
+    color: #333;
+    padding: 8px 16px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+    z-index: 3000; /* ✅ ensure it's above the grid and menus */
+  }
+
+  .stats-button-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .stats-button {
+    font-size: 32px;
+    padding: 0;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    border-radius: 50%;
+    box-shadow: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s;
+    cursor: url("wii-pointer-blue.cur"), auto;
+  }
+  
+  .stats-button img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    cursor: url("wii-pointer-blue.cur"), auto;
+  }
+  
+  .stats-button:hover {
+    transform: scale(1.15);
+    background-color: #e4e4e4;
+  }
+  
+  .stats-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 8px;
+    background-color: #333;
+    color: #fff;
+    padding: 0.4rem 0.6rem;
+    border-radius: 4px;
+    font-size: 12.8px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    font-family: 'Continuum';
+  }
+  
+  .stats-button-wrapper:hover .stats-tooltip {
+    opacity: 1;
+  }
+  
+  .stats-menu {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 32px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    display: none;
+    z-index: 1000;
+    font-family: 'Continuum';
+  }
+
+  .button-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px; 
+    margin-top: 16px;
+  }
+  
+  .subtext {
+    font-size: 16px;
+    color: #666;
+    text-align: center;
+    font-family: 'Continuum', sans-serif;
+    margin-top: -10px;
+    margin-bottom: 24px;
+    transition: transform 0.4s ease;
+  }
+  
+  @keyframes pulseBounce {
+    0%   { transform: scale(1); opacity: 1; }
+    50%  { transform: scale(1.1); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  
+  
+  .animate-pulse {
+    animation: pulseBounce 1s ease-in-out;
+  }
+  
+  .close-button img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    cursor: url("wii-pointer-blue.cur"), auto;
+  }
+
+  .close-button-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-top: 1rem;
+    margin-left: 1rem;
+  }
+
+  .close-button:hover {
+    transform: scale(1.15);
+    background-color: #e4e4e4;
+  }
+
+  .close-button {
+    font-size: 32px;
+    padding: 0;
+    border: none; 
+    outline: none; 
+    background-color: transparent; 
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s;
+    box-shadow: none;
+    cursor: url("wii-pointer-blue.cur"), auto;
+  }
+
+  .close-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 8px;
+    background-color: #333;
+    color: #fff;
+    padding: 0.4rem 0.6rem;
+    border-radius: 4px;
+    font-size: 12.8px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    font-family: 'Continuum';
+  }
+  
+  .close-button-wrapper:hover .close-tooltip {
+    opacity: 1;
+  }
+
+  .confirm-button img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    cursor: url("wii-pointer-blue.cur"), auto;
+  }
+
+  .confirm-button-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-top: 1rem;
+    margin-left: 1rem;
+  }
+
+  .confirm-button:hover {
+    transform: scale(1.15);
+    background-color: #e4e4e4;
+  }
+
+  .confirm-button {
+    font-size: 32px;
+    padding: 0;
+    border: none; 
+    outline: none; 
+    background-color: transparent; 
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s;
+    box-shadow: none;
+    cursor: url("wii-pointer-blue.cur"), auto;
+  }
+
+  .confirm-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 8px;
+    background-color: #333;
+    color: #fff;
+    padding: 0.4rem 0.6rem;
+    border-radius: 4px;
+    font-size: 12.8px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    font-family: 'Continuum';
+  }
+  
+  .confirm-button-wrapper:hover .confirm-tooltip {
+    opacity: 1;
+  }
+
+  .graveyard-button-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .graveyard-button {
+    font-size: 32px;
+    padding: 0;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    border-radius: 50%;
+    box-shadow: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s;
+    cursor: url("wii-pointer-blue.cur"), auto;
+  }
+  
+  .graveyard-button img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    cursor: url("wii-pointer-blue.cur"), auto;
+  }
+  
+  .graveyard-button:hover {
+    transform: scale(1.15);
+    background-color: #e4e4e4;
+  }
+  
+  .graveyard-menu {
+    position: fixed;
+    font-family: 'Continuum';
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 32px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    display: none;
+    z-index: 1000;
+    max-height: 80vh;       /* ✅ ensure modal doesn’t go off-screen */
+    overflow-y: auto;       /* ✅ enable scrolling if it gets too tall */
+  }
+  
+  
+  .grave-entry {
+    margin-bottom: 16px;
+    font-family: 'Continuum', monospace;
+  }
+
+  .death-message {
+    font-style: italic;
+    color: #555;
+    margin-top: 4px;
+    margin-bottom: 12px;
+  }
+
+  #graveyardContent {
+    max-height: 60vh;        /* ✅ dynamic height based on screen */
+    overflow-y: auto;
+    padding-right: 8px;
+    text-align: left;
+    scroll-behavior: smooth;
+  }
+
+  .graveyard-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 8px;
+    background-color: #333;
+    color: #fff;
+    padding: 0.4rem 0.6rem;
+    border-radius: 4px;
+    font-size: 12.8px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    font-family: 'Continuum';
+  }
+  
+  .graveyard-button-wrapper:hover .graveyard-tooltip {
+    opacity: 1;
+  }
+  
+  
+
+  /*
+The following code is used to animate the avatars dying.
+  */
+
+  @keyframes retroBurst {
+    0% {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+      filter: contrast(100%) saturate(100%);
+    }
+    40% {
+      transform: scale(1.3) rotate(5deg);
+      filter: contrast(300%) saturate(0%) brightness(150%);
+    }
+    70% {
+      transform: scale(0.8) rotate(-8deg);
+      filter: contrast(60%) blur(1px);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.1) rotate(180deg);
+      filter: blur(3px);
+    }
+  }
+  
+  .dying {
+    animation: retroBurst 0.8s ease-out forwards;
+  }
+
+.icon-button-wrapper,
+.stats-button-wrapper,
+.graveyard-button-wrapper {
+  margin: 0; /* 🔧 remove uneven spacing */
+}
+
+#lifeTicker {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  width: 100%;
+  background-color: #d3d4db;
+  color: #3fc0ec;
+  font-family: 'Continuum', sans-serif;
+  font-size: 0.9rem;
+  overflow: hidden;
+  white-space: nowrap;
+  z-index: 2000;
+  padding: 6px 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+#tickerText {
+  display: inline-block;
+  padding-left: 100%;
+  animation: tickerScroll 20s linear infinite;
+}
+
+@keyframes tickerScroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.population-counter {
+  position: fixed;
+  top: 36px; /* Adjust depending on ticker */
+  right: 16px;
+  background-color: rgba(34, 34, 34, 0.8);
+  color: #eee;
+  font-family: 'Continuum', sans-serif;
+  font-size: 0.85rem;
+  padding: 4px 10px;
+  border-radius: 8px;
+  z-index: 1500;
+  box-shadow: 0 0 6px rgba(0,0,0,0.3);
+}
+
+.population-inline {
+  font-size: 0.85rem;
+  font-family: 'Continuum', sans-serif;
+  color: #444;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  transition: opacity 0.3s ease;
+}
