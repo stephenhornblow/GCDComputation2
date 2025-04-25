@@ -387,3 +387,10 @@ function updatePopulationCounter() {
 setInterval(updatePopulationCounter, 1000);
 window.addEventListener('load', updatePopulationCounter);
 
+window.addEventListener('click', () => {
+  const bgMusic = document.getElementById('bgMusic');
+  if (bgMusic && bgMusic.paused) {
+    bgMusic.volume = 0.8; // Optional: set a low volume
+    bgMusic.play();
+  }
+}, { once: true }); // only run once
